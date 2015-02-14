@@ -1,5 +1,7 @@
 <?php
 
+require_once (BASEPATH . 'core/Loader.php');
+
 class HGController {
 	
 	private static $INSTANCE;
@@ -11,12 +13,13 @@ class HGController {
 	private $pathContext = array ();
 	private $headers;
 
-	
+	public $loader;
 
 	private function __construct () {
 		self::$INSTANCE = &$this;
 		$this -> pathContext = array_slice (split ('/', urldecode (trim ($_SERVER ['REQUEST_URI'], '/'))),1);
 		$this -> headers = getallheaders ();
+		$this -> loader = Loader::getInstance ();
 	}
 
 	public static function &getInstance () {
@@ -107,6 +110,11 @@ class HGController {
 
 	public function view ($filename) {
 		include (APPPATH . 'views/' . $filename . 'php');
+	}
+
+	public function getAccept () {
+		$accept = split (',', $this -> headers ['Accept']);
+		return $accept [0];
 	}
 }
 
