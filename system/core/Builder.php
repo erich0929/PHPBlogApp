@@ -70,4 +70,55 @@ class Handler {
 
 }
 
+class DBConfig {
+
+	private $dbConfig;
+
+	public function __construct () {
+		$this -> dbConfig = array ();
+		$this -> dbConfig ['drivername'] = 'utf8';
+		$this -> dbConfig ['dbcollation'] = 'utf8_general_ci';
+	}
+
+	public function username ($username) {
+		$this -> dbConfig ['username'] = $username;
+		return $this;
+	}
+
+	public function password ($password) {
+		$this -> dbConfig ['password'] = $password;
+		return $this;
+	}
+
+	public function hostname ($hostname) {
+		$this -> dbConfig ['hostname'] = $hostname;
+		return $this;
+	}
+
+	public function database ($database) {
+		$this -> dbConfig ['database'] = $database;
+		return $this;
+	}
+
+	public function driver ($driver) {
+		$this -> dbConfig ['drivername'] = $driver;
+		return $this;
+	}
+
+	public function charset ($charset) {
+		$this -> dbConfig ['charset'] = $charset;
+		return $this;
+	}
+
+	public function dbcollation ($dbcollation) {
+		$this -> dbConfig ['dbcollation'] = $dbcollation;
+		return $this;
+	}
+
+	public function build () {
+		return $this -> dbConfig;
+	}
+
+}
+
 ?>
