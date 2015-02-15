@@ -23,8 +23,7 @@ class Handler {
 	}
 
 	public function rules ($pregArr) {
-		$rules =& $this -> handler ['rules'];
-		$rules =& $pregArr;
+		$this -> handler ['rules'] =& $pregArr;
 		return $this;
 	}
 

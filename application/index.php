@@ -6,5 +6,6 @@
 
 	$HG =& getInstance ();
 	$HG -> loader -> controller ('mainController');
+	$HG -> loader -> controller ('jsonController');
 
 ?>
