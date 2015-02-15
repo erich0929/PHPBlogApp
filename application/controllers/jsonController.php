@@ -5,9 +5,11 @@
 					-> handler (function () {
 						$HG =& getInstance ();
 						if ($HG -> getAccept () == 'application/json') {
+							$HG -> setContentType ($HG -> getAccept ());
 							echo json_encode (array ('data' => 'Hello world!'));
 						} else {
-							echo "Hello world!";
+							$HG -> setContentType ($HG -> getAccept ());
+							echo json_encode (array ('data' => 'Hello world!'));
 						}
 					});
 	$HG =& getInstance ();

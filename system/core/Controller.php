@@ -116,6 +116,10 @@ class HGController {
 		$accept = split (',', $this -> headers ['Accept']);
 		return $accept [0];
 	}
+
+	public function setContentType ($contentType) {
+		header ("Content-Type: $contentType");
+	}
 }
 
 ?>
