@@ -5,7 +5,8 @@
 	 */
 
 	$HG =& getInstance ();
-	$HG -> loader -> controller ('mainController');
-	$HG -> loader -> controller ('jsonController');
+	$HG -> loader -> controller ('mainController')
+				-> controller ('jsonController');
 
 ?>
+

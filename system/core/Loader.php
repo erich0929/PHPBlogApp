@@ -19,6 +19,7 @@
 
 		public function controller ($controller) {
 			require_once (APPPATH . "controllers/$controller.php");
+			return $this;
 		}
 
 		public function view ($view) {
