@@ -92,6 +92,7 @@ class HGController {
 		if (preg_match ('/\.(html|js|css|png)$/', $pathContext [$pathLength - 1])) {
 				$filename = APPPATH . 'public/' . join ('/', $pathContext);
 				if (file_exists($filename)) {
+					$this -> setContentType ($this -> getAccept ()); 
 					require ($filename);
 					return;	
 				}
