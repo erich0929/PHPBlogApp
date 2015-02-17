@@ -1,9 +1,35 @@
 <!doctype html>
-<html>
+<html ng-app='sampleApp'>
 <head>
+	<script type="text/javascript" src="libs/angular/angular.js"></script>
+	<script type="text/javascript">
+		 angular.module ('sampleApp', [])
+		 		.controller ('mainController', ['$scope', function ($scope) {
+		 			$scope.name = 'main : name';
+		 			$scope.sendMessage = function (message) {
+		 				alert (message);
+		 			};
+		 		}])
+		 		.directive ('hello', function () {
+		 			return {
+		 				templateUrl : "templates/helloTmpl.html",
+		 				restrict : "AE",
+		 				scope : { 
+		 					name : "@name",
+		 					send : "&" 
+		 				}
+		 			};
+		 		})
+		 	
+
+	</script>
 	<title>Welcome to My PHP Blog</title>
 </head>
-<body>
-Hello world!
+<body ng-controller='mainController'>
+<h1>{{appName}}</h1>
+<div hello name="google" send="sendMessage (name)"></div>
+<div hello name="facebook" send="send (name)"></div>
+<div hello name="twitter" send="send (name)"></div>
+<div adapter name="adapter"></div><div hello name="github" send="sendMessage (name)"></div>
 </body>
 </html>

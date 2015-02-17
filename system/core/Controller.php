@@ -89,11 +89,17 @@ class HGController {
 			}
 		}
 		// try static resource;
-		if (preg_match ('/\.(html|js|css|png)$/', $pathContext [$pathLength - 1])) {		
-				require (APPPATH . 'public/' . join ('/', $pathContext));
-		} else {
-			echo "404 Page Not Found.";
-		}
+		if (preg_match ('/\.(html|js|css|png)$/', $pathContext [$pathLength - 1])) {
+				$filename = APPPATH . 'public/' . join ('/', $pathContext);
+				if (file_exists($filename)) {
+					require ($filename);
+					return;	
+				}
+								
+		} 
+			
+		echo "404 Page Not Found.";
+	
 	}
 
 	private function callHook (&$hook) {
