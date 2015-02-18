@@ -4,9 +4,10 @@
 	 * what your application need to use like controllers, database, mapper etc.
 	 */
 
+
+
 	$HG =& getInstance ();
 	$HG -> loader -> controller ('mainController')
 				-> controller ('jsonController');
-
 ?>
 

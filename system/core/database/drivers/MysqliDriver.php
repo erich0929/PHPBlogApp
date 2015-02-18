@@ -2,15 +2,16 @@
 
 	class MysqliDriver extends DBdriver {
 
-		public function __construct () {
-
+		public function __construct ($dbConfig) {
+			parent::__construct ($dbConfig);
 		}
 
 		public function __dbConnect () {
-			return mysqli_connect ($this -> username, $this -> password, $this -> database);
+			return mysqli_connect ($this -> hostname, $this -> username, $this -> password, $this -> database);
 		}
 
 		public function __execute ($sql) {
+			if (is_resource ($this -> dbconn)) echo 'connection';
 			return mysqli_query ($this -> dbconn, $sql);
 		}
 

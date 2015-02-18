@@ -30,19 +30,17 @@
 
 			$this -> dbconn = $this -> __dbConnect ();
 
-			if (!is_resource ($this -> dbconn)) return false;
+			if (!is_resource ($this -> dbconn) && !is_object ($this -> dbconn)) return false;
 			return true;
 		}
 
 		public function query ($sql) {
 			if ($sql == '') return false;
-
 			// run the query
 			if  (!$resultId = $this -> simpleQuery ($sql)) {
 				$this -> $transStatus = false;
 				return false;
 			}
-
 			if ($this -> isWriteType ($sql)) {
 				return true;
 			} else {
@@ -53,17 +51,22 @@
 
 		// for lazy init.
 		protected function simpleQuery ($sql) {
-			if (!is_resource ($this -> dbconn)) $this -> init ();
+			if (!is_resource ($this -> dbconn) && !is_object($this -> dbconn)) {
+				$this -> init ();
+			}
 			return $this -> __execute ($sql);
 		}
 
 		public function fetchRow ($resultId) {
-			if (!is_resource ($resultId)) return false;
+			if (!is_resource ($resultId) && !is_object ($resultId)) return false;
 			return $this -> __fetchRow ($resultId);
 		}
 
 		public function fetchAssoc ($resultId) {
-			if (!is_resource ($resultId)) return false;
+			if (!is_resource ($resultId) && !is_object ($resultId)) {
+				
+				return false;
+			}
 			return $this -> __fetchAssoc ($resultId);
 		}
 
