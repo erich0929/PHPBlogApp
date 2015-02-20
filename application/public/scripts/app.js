@@ -11,6 +11,12 @@
 					templateUrl : 'scripts/blog/templates/main.tmpl.html',
 					controller : 'mainController'
 				})
+			.when (
+				'/write',
+				{
+					templateUrl : 'scripts/blog/templates/write.tmpl.html',
+					controller : 'writeController'
+				})
 			.otherwise ({ redirectTo : '/main'});
 	}]);
 
@@ -18,3 +24,5 @@
 		$scope.brand = 'erich0929';
 	
 	}]);
+
+	//app.directive ('');

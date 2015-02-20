@@ -89,7 +89,7 @@ class HGController {
 			}
 		}
 		// try static resource;
-		if (preg_match ('/\.(html|js|css|png)$/', $pathContext [$pathLength - 1])) {
+		if (preg_match ('/\.(html|js|css|png|woff|tff)$/', $pathContext [$pathLength - 1])) {
 				$filename = APPPATH . 'public/' . join ('/', $pathContext);
 				if (file_exists($filename)) {
 					$this -> setContentType ($this -> getAccept ()); 
