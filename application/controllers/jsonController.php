@@ -9,7 +9,7 @@
 							echo json_encode (array ('data' => 'Hello world!'));
 						} else {
 							$HG -> setContentType ($HG -> getAccept ());
-							echo json_encode (array ('data' => 'Hello world!'));
+							echo json_encode ($HG -> pathContext);
 						}
 					});
 	$HG =& getInstance ();

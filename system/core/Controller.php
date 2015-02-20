@@ -10,14 +10,14 @@ class HGController {
 	private $handlerContext = array ();
 	// handlerContext end;
 
-	private $pathContext = array ();
+	public $pathContext = array ();
 	private $headers;
 
 	public $loader;
 
 	private function __construct () {
 		self::$INSTANCE = &$this;
-		$this -> pathContext = array_slice (split ('/', urldecode (trim ($_SERVER ['REQUEST_URI'], '/'))),1);
+		$this -> pathContext = array_slice (split ('/', preg_replace ('/\?.*?$/','', urldecode (trim ($_SERVER ['REQUEST_URI'], '/')))),1);
 		$this -> headers = getallheaders ();
 		$this -> loader = Loader::getInstance ();
 	}
