@@ -1,7 +1,7 @@
 // mainController.js
 
 	angular.module ('erich0929.blogApp.controller')
-			.controller ('mainController', ['$scope', function ($scope) {
+			.controller ('mainController', ['$scope', 'BoardService', function ($scope) {
 				$scope.mainArticles = 
 					[
 						{

@@ -5,12 +5,20 @@
           </div>
         </div>
       </div>
-        <form action='insert.php' method='post'>
+        <form action='http://blog.erich0929.com/index.php/insert' method='post'>
+             <div class='form-group'>
+                <div>
+                    <label>Board</label>
+                </div>
+               <select ng-model="board" ng-options="board.name for board in boards"></select>
+               <input type="hidden" name="boardName" ng-model="board.name" value={{board.name}} />
+            </div>
+
             <div class='form-group'>
                 <div>
                     <label>Author</label>
                 </div>
-                <input type='text' name='name' value='erich0929' size='20' maxlength='10' />
+                <input type='text' name='author' value='erich0929' size='20' maxlength='10' />
             </div>
            
             <div class='form-group'>
@@ -36,7 +44,7 @@
             <form id='uploadForm' enctype="multipart/form-data" action='#' method='post'>
                 <div class='form-group'>
                     <label>File : </label>
-                    <input type='file' name='filename' size='20' maxlength='10' />
+                    <input type='file' name='file' size='20' maxlength='10' />
                 </div>
                 <button type="button" class="btn btn-default fileSubmit">
                     <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
@@ -47,7 +55,7 @@
             <script type="text/javascript">
         $(function () {
             var div = $(".upload-window");
-            div.dialog ({autoOpen : false, modal : true, show : "blind", hide : "blind"});
+            div.dialog ({ autoOpen : false, modal : true });
             $(".upload-button").click(function () {
                 div.dialog ('open');
                 return false;
@@ -58,7 +66,7 @@
                 
                // alert ($("input[name=filename]").val());
                 $.ajax ({
-                    url : '/index.php/upload',
+                    url : 'http://blog.erich0929.com/index.php/upload',
                     type : 'post',
                     data : formData,
                     mimeType : 'multipart/form-data',
@@ -66,11 +74,11 @@
                     contentType: false,
                     success : function (data) {
                         div.dialog ('close');
-                        window.prompt("Copy to clipboard: Ctrl+C, Enter", data);
+                        data = JSON.parse (data);
+                        window.prompt("Copy to clipboard: Ctrl+C, Enter", data.url);
                     },
-                    error : function (req, status, err) { 
-                        alert (status + ' : ' + err); 
-                        div.dialog ('close');
+                    error:function(request,status,error){
+                         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+ error);
                     }
                 });
                return false;

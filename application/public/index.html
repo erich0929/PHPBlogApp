@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 	<title>Welcome to My PHP Blog</title>
 </head>
 <body ng-controller='appController'>
@@ -19,10 +20,12 @@
 			<div class="navbar-collapse collapse" id="navbar-main">
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Catagories <span class="caret"></span></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" id="themes">Catagories <span class="caret"></span></a>
 						<ul class="dropdown-menu" aria-labelledby="themes">
 							<!-- data -->
+							<li ng-repeat="board in boards"><a href="">{{board.name}}</a></li>
 							<li class="divider"></li>
+
 						</ul>
 					</li>
 					<li>
@@ -32,16 +35,11 @@
 						<a href="#">Blog</a>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Download <span class="caret"></span></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin">Admin <span class="caret"></span></a>
 						<ul class="dropdown-menu" aria-labelledby="download">
-							<li><a href="#">bootstrap.min.css</a></li>
-							<li><a href="#">bootstrap.css</a></li>
+							<li><a href="#/write">Write Article</a></li>
+							<li><a href=""></a></li>
 							<li class="divider"></li>
-							<li><a href="#">variables.less</a></li>
-							<li><a href="#">bootswatch.less</a></li>
-							<li class="divider"></li>
-							<li><a href="#">_variables.scss</a></li>
-							<li><a href="#">_bootswatch.scss</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -63,8 +61,10 @@
 	<script type="text/javascript" src="libs/angular-resource/angular-resource.js"></script>
 	<script type="text/javascript" src="libs/angular-route/angular-route.js"></script>
 	<script type="text/javascript" src="libs/ckeditor/ckeditor.js"></script>
+	<!--script type="text/javascript" src="scripts/blog/services/boardService.js"></script-->
 	<script type="text/javascript" src="scripts/app.js"></script>
 	<script type="text/javascript" src="scripts/blog/controllers/mainController.js"></script>
 	<script type="text/javascript" src="scripts/blog/controllers/writeController.js"></script>
+	
 </body>
 </html>

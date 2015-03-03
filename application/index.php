@@ -7,7 +7,21 @@
 
 
 	$HG =& getInstance ();
-	$HG -> loader -> controller ('mainController')
-				-> controller ('jsonController');
+
+	$dbConfig = new DBConfig ();
+	$dbConfig 	-> username ('admin')
+				-> password ('2642805')
+				-> hostname ('192.168.10.101')
+				-> database ('blog')
+				-> driver ('MysqliDriver');
+	$config = $dbConfig -> build ();
+
+	$HG -> loader -> database ('MysqliDriver', $config);
+	
+	$HG -> loader //-> controller ('mainController')
+				-> controller ('jsonController')
+				-> controller ('boardsController')
+				-> controller ('uploadController')
+				-> controller ('articleController');
 ?>
 

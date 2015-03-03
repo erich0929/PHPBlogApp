@@ -1,6 +1,7 @@
 <?php
 
 require_once (BASEPATH . 'core/Loader.php');
+require_once (BASEPATH . 'core/StaticResource.php');
 
 class HGController {
 	
@@ -15,11 +16,14 @@ class HGController {
 
 	public $loader;
 
+	private $staticResource;
+
 	private function __construct () {
 		self::$INSTANCE = &$this;
 		$this -> pathContext = array_slice (split ('/', preg_replace ('/\?.*?$/','', urldecode (trim ($_SERVER ['REQUEST_URI'], '/')))),1);
 		$this -> headers = getallheaders ();
 		$this -> loader = Loader::getInstance ();
+		$this -> staticResource = StaticResource::getInstance ();
 	}
 
 	public static function &getInstance () {
@@ -33,13 +37,17 @@ class HGController {
 		print_r ($this -> handlerContext);
 	}
 
+	public function &getPathContext () {	
+		return $this -> pathContext;
+	}
+
 	// $HG -> setRequestHandler ({ id => '_id', rules => {'/pregex/', '/pregex/'}, handler });
 	public function get (&$handlerInfo) {
 		return $this -> registerHandler ('GET', $handlerInfo);
 	}
 
 	public function post (&$handlerInfo) {
-		return registerHandler ('POST', $handlerInfo);
+		return $this -> registerHandler ('POST', $handlerInfo);
 	}
 
 	private function registerHandler ($method, &$handlerInfo) {
@@ -89,17 +97,9 @@ class HGController {
 			}
 		}
 		// try static resource;
-		if (preg_match ('/\.(html|js|css|png|woff|tff)$/', $pathContext [$pathLength - 1])) {
-				$filename = APPPATH . 'public/' . join ('/', $pathContext);
-				if (file_exists($filename)) {
-					$this -> setContentType ($this -> getAccept ()); 
-					require ($filename);
-					return;	
-				}
-								
-		} 
+		if ($this -> staticResource -> route ()) { return; }
 			
-		echo "404 Page Not Found.";
+		exit ("404 Page Not Found.");
 	
 	}
 

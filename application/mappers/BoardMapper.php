@@ -14,7 +14,11 @@
 			if (!is_resource ($resultId) && !is_object ($resultId)) {
 				return false;
 			}
-			$boards = $this -> driver -> fetchAssoc ($resultId);
+			$boards = array ();
+			while ($board = $this -> driver -> fetchAssoc ($resultId)) {
+				array_push ($boards, $board);
+
+			}
 			return $boards;
 		}
 

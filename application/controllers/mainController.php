@@ -5,21 +5,11 @@
 	
 	$handler = new Handler ();
 
-	$handler -> rule ('/^main$/')
+	$handler -> rule ('/^boards$/')
 			//-> id ('index')
 			-> handler (function () {
 				$HG = getInstance (); 
 	
-				$dbConfig = new DBConfig ();
-				$dbConfig 	-> username ('admin')
-							-> password ('2642805')
-							-> hostname ('192.168.10.101')
-							-> database ('blog')
-							-> driver ('MysqliDriver');
-				$config = $dbConfig -> build ();
-
-				$HG -> loader -> database ('MysqliDriver', $config);
-
 				//$HG -> loader -> showContext ();
 				$accept = $HG -> getAccept ();
 				if (true) {
