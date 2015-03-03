@@ -1,14 +1,8 @@
 // app.js
 	var app = angular.module ('erich0929.blogApp', ['ngRoute', 'erich0929.blogApp.controller',
 													'erich0929.blogApp.service']),
-		controller = angular.module ('erich0929.blogApp.controller', ['erich0929.blogApp.service']),
+		controller = angular.module ('erich0929.blogApp.controller', []),
 		service = angular.module ('erich0929.blogApp.service', ['ngResource']);
-
-		service.factory ('BoardService', ['$resource', function ($resource) {
-			var url = 'http://blog.erich0929.com/index.php/boards';
-			var boardResource = $resource (url, {},{ query : {method : 'GET', isArray : true}});
-			return boardResource;
-		}]);
 
 	app.config (['$routeProvider', function ($routeProvider) {
 		$routeProvider
@@ -28,6 +22,18 @@
 				{
 					templateUrl : 'scripts/blog/templates/write.tmpl.html',
 					controller : 'writeController'
+				})
+			.when ('/view/:articleId', 
+				{
+					templateUrl : 'scripts/blog/templates/view.tmpl.html',
+					controller : 'viewController',
+					resolve : {
+						article : function (ArticleService, $route) {
+							console.log ($route.current.params);
+							var articleService = new ArticleService ($route.current.params.articleId);
+							return articleService.get ().$promise;
+						}
+					}
 				})
 			.otherwise ({ redirectTo : '/main'});
 	}]);

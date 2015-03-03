@@ -1,22 +1,27 @@
 <?php
 
 	$articleHandler = new Handler ();
-	$articleHandler -> rules (array ('/^insert$/'))
+	$articleHandler -> rules (array ('/^article$/', '/^[0-9]+$/'))
 					-> handler (function () {
-						
-						echo 'a';
-						$HG = getInstance ();
-						$articleMapper = $HG -> loader -> mapper ('ArticleMapper');
-						echo 'b';
-						print_r ($_POST);
-						if ($articleMapper -> insertArticle ($_POST)) {
-							echo 'post';
-							header ('Location: ' . 'http://blog.erich0929.com/application/public/index.html');
-						}
-						exit ('500');
-					});
-
+				$HG = getInstance (); 
+	
+				//$HG -> loader -> showContext ();
+				
+				$pathContext = $HG -> getPathContext ();
+				$articleId = $pathContext [1];
+				$articleMapper = $HG -> loader -> mapper ('ArticleMapper');
+				$article = $articleMapper -> findOneArticle ($articleId);
+				$HG -> setContentType ('application/json');
+				if (!$article) {
+					echo json_encode('No result');
+					return;
+				}
+											
+				echo json_encode ($article, JSON_FORCE_OBJECT);
+				return;
+				//print_r ($HG -> loader -> database ('MysqliDriver'));
+			});
 	$HG =& getInstance ();
-	$HG -> post ($articleHandler -> build ());
+	$HG -> get ($articleHandler -> build ());
 
 ?>

@@ -1,0 +1,16 @@
+ <div class="page-header" id="banner">
+ 	<div class="row">
+ 		<div class="col-lg-8 col-md-7 col-sm-6">
+ 			<h2 id="blog-post-title" class="blog-post-title"><strong>{{article.title}}</strong></h2>
+ 			<p id="blog-post-meta" class="blog-post-meta"><i>{{article.date}}<a href="#">{{article.author}}</a></i></p>
+ 		</div>
+ 	</div>
+ </div>
+
+<div id='wrapper' class="blog-post">
+	<section>
+		<article id="article">
+			<p ng-bind-html="article.content"></p>
+		</article>
+	</section>
+</div><!-- /.blog-post -->

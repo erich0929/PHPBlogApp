@@ -32,11 +32,23 @@
 			$sql = "INSERT INTO Articles (boardName, title, author, content, date) VALUES (" .
 					"'{$article ['boardName']}', '{$article ['title']}', '{$article ['author']}'," .
 					"'{$article ['content']}', unix_timestamp(now()))";
-			echo $sql;
 			return $this -> driver -> query ($sql);
 
 		}
 
+		public function findOneArticle ($articleId) {
+
+			$sql = "SELECT * FROM Articles WHERE articleId = {$articleId}";
+
+			$resultId = $this -> driver -> query ($sql);
+
+			if (!is_resource ($resultId) AND !is_object($resultId)) {
+				return false;
+			}
+
+			$article = $this -> driver -> fetchAssoc ($resultId);
+			return $article;
+		}
 	}
 
 ?>

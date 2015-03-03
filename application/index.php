@@ -22,6 +22,7 @@
 				-> controller ('jsonController')
 				-> controller ('boardsController')
 				-> controller ('uploadController')
+				-> controller ('insertController')
 				-> controller ('articleController');
 ?>
 

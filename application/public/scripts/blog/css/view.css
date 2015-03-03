@@ -1,0 +1,19 @@
+#blog-post-title {
+	margin-top : 40px;
+
+}
+
+#blog-post-meta {
+	margin-top : 30px;
+}
+
+#article {
+	margin-top: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 30px;
+}
+
+#article hr {
+	border: 1px solid;
+}
