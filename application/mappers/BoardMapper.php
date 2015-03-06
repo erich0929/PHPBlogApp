@@ -22,6 +22,29 @@
 			return $boards;
 		}
 
+		public function getAllArticles () {
+			$sql = "SELECT * FROM `Articles` ORDER BY `date` DESC";
+			return $this -> getResultByArray ($sql);
+		}
+
+		public function getArticlesByBoard ($boardName) {
+			$sql = "SELECT * FROM `Articles` WHERE boardName = '{$boardName}' ORDER BY `date` DESC";
+			return $this -> getResultByArray ($sql);
+		}
+
+		private function getResultByArray ($sql) {
+			//
+			$resultId = $this -> driver -> query ($sql);
+			if (!is_resource ($resultId) && !is_object ($resultId)) {
+				return false;
+			}
+			$records = array ();
+			while ($record = $this -> driver -> fetchAssoc ($resultId)) {
+				array_push ($records, $record);
+			}
+			return $records;
+		}
+
 	}
 
 ?>

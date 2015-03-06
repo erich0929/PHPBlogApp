@@ -1,8 +1,10 @@
 // app.js
 	var app = angular.module ('erich0929.blogApp', ['ngRoute', 'erich0929.blogApp.controller',
-													'erich0929.blogApp.service']),
+													'erich0929.blogApp.service', 
+													'erich0929.blogApp.directive']),
 		controller = angular.module ('erich0929.blogApp.controller', []),
-		service = angular.module ('erich0929.blogApp.service', ['ngResource']);
+		service = angular.module ('erich0929.blogApp.service', ['ngResource']),
+		directive = angular.module ('erich0929.blogApp.directive', []);
 
 	app.config (['$routeProvider', function ($routeProvider) {
 		$routeProvider
@@ -23,6 +25,21 @@
 					templateUrl : 'scripts/blog/templates/write.tmpl.html',
 					controller : 'writeController'
 				})
+			.when ('/admin', 
+				{
+					templateUrl : 'scripts/blog/templates/admin.tmpl.html',
+					controller : 'adminController'
+				})
+			.when ('/dashboard', 
+				{
+					templateUrl : 'scripts/blog/templates/dashboard.tmpl.html',
+					controller : 'dashboardController'
+				})
+			.when ('/dashboard/:board', 
+				{
+					templateUrl : 'scripts/blog/templates/dashboard.tmpl.html',
+					controller : 'dashboardController'
+				})
 			.when ('/view/:articleId', 
 				{
 					templateUrl : 'scripts/blog/templates/view.tmpl.html',
@@ -40,8 +57,9 @@
 
 	app.controller ('appController', ['$scope', 'BoardService', function ($scope, BoardService) {
 		$scope.brand = 'erich0929';
-		$scope.boards = BoardService.query ();
-	
+		var boardService = new BoardService ();
+		$scope.boards = boardService.getBoards ();
+				
 	}]);
 
 	//app.directive ('');

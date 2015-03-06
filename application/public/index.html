@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="libs/jquery-ui/themes/base/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="scripts/blog/css/view.css">
 	<title>Welcome to My PHP Blog</title>
 </head>
@@ -38,6 +38,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin">Admin <span class="caret"></span></a>
 						<ul class="dropdown-menu" aria-labelledby="download">
+							<li><a href="#/admin">Administor</a></li>
 							<li><a href="#/write">Write Article</a></li>
 							<li><a href=""></a></li>
 							<li class="divider"></li>
@@ -67,7 +68,10 @@
 	<script type="text/javascript" src="scripts/blog/services/articleService.js"></script>
 	<script type="text/javascript" src="scripts/blog/controllers/mainController.js"></script>
 	<script type="text/javascript" src="scripts/blog/controllers/writeController.js"></script>
+	<script type="text/javascript" src="scripts/blog/controllers/adminController.js"></script>
 	<script type="text/javascript" src="scripts/blog/controllers/viewController.js"></script>
+	<script type="text/javascript" src="scripts/blog/controllers/dashboardController.js"></script>
+	<script type="text/javascript" src="scripts/blog/directives/pages.js"></script>
 	
 </body>
 </html>

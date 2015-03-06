@@ -1,18 +1,3 @@
-INSERT INTO `Board` (`name`, `description`) 
-VALUES ('Economy', 'Economy board'); 
-
-INSERT INTO `Board` (`name`, `description`) 
-VALUES ('Science', 'Science board'); 
-
-INSERT INTO `Board` (`name`, `description`) 
-VALUES ('Media', 'Media board'); 
-
-INSERT INTO `Board` (`name`, `description`) 
-VALUES ('Football', 'Football board'); 
-
-INSERT INTO `Board` (`name`, `description`) 
-VALUES ('Programming', 'Programming board'); 
-
 INSERT INTO `Articles` (`boardName`, `title`, `author`, `content`,`date`)
 VALUES ('Economy', '통화가치 절하 도미노, 동남아까지 번지나', 'erich0929', '자국 통화가치의 최근 변동폭과 외환보유고 변동 지표를 활용해 산출하는 외환시장압력지수는 현재 주어진 환율수준에서 시장에 존재하는 외화 초과공급(혹은 수요)를 반영한 것이다. 지수가 플러스이면 자국 통화가치 상승압력이, 마이너스이면 절하압력이 있음을 뜻한다. 각국 중앙은행이 불황을 막으려고 돈을 풀고 금리를 내리는 통화전쟁에 돌입하면서 상대적으로 자국 통화가치가 상승하고 있으며, 이에 따라 적정 균형환율로 복원하기 위한 자국 통화가치 절하압력이 시장에서 고조되고 있는 것이다.
 
