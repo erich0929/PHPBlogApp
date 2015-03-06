@@ -49,7 +49,7 @@
                   <span ng-repeat="page in ranges">
                     <a ng-click="updateCurrentPageArticles (page)" ng-model="page">{{page}}</a>
                   </span>
-                  <span ng-hide="(pages.start + pages.ranges || 0) > pages.totalPages">
+                  <span ng-hide="(pages.start + pages.range || 0) > pages.totalPages">
                     <a ng-click="updateStartPage (false)">next</a>
                   </span>
                 </div>
