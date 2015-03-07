@@ -24,6 +24,7 @@
 				-> controller ('uploadController')
 				-> controller ('insertController')
 				-> controller ('articleController')
-				-> controller ('deleteController');
+				-> controller ('deleteController')
+				-> controller ('editController');
 ?>
 

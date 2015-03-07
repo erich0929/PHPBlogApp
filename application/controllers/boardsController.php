@@ -29,9 +29,24 @@
 						$HG -> setContentType ('application/json');
 						echo json_encode (array_values ($articles));
 
-					});				
+					});		
+	$findOneArticleController = new Handler ();
+	$findOneArticleController -> rules (array ('/^boards$/', '/^.+$/', '/^[0-9]+$/'))
+							-> handler (function () {
+								$HG = getInstance ();
+								$pathContext = $HG -> getPathContext ();
+								$boardName = $pathContext [1];
+								$articleId = $pathContext [2];
+								$boardMapper = $HG -> loader -> mapper ('BoardMapper');
+								$article = $boardMapper -> findOneArticle ($boardName, $articleId);
+								$HG -> setContentType ('application/json');
+								echo json_encode ($article, JSON_FORCE_OBJECT);
+
+
+							});		
 	$HG =& getInstance ();
 	$HG -> get ($boardsHandler -> build ());
 	$HG -> get ($someBoardHandler -> build ());
+	$HG -> get ($findOneArticleController -> build ());
 
 ?>

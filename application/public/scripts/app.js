@@ -25,6 +25,22 @@
 					templateUrl : 'scripts/blog/templates/write.tmpl.html',
 					controller : 'writeController'
 				})
+			.when ('/edit/:boardName/:articleId', 
+				{
+					templateUrl : "scripts/blog/templates/edit.tmpl.html",
+					controller : 'editController',
+					resolve : {
+						article : function (BoardService, $route) {
+							var boardService = new BoardService ();
+							return boardService.getArticle ($route.current.params.boardName,
+															$route.current.params.articleId);
+						},
+						boards : function (BoardService) {
+							var boardService = new BoardService ();
+							return boardService.getBoardsByPromise ();
+						}
+					}
+				})
 			.when ('/admin', 
 				{
 					templateUrl : 'scripts/blog/templates/admin.tmpl.html',
