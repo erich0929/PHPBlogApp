@@ -32,6 +32,11 @@
 			return $this -> getResultByArray ($sql);
 		}
 
+		public function removeArticle ($boardName, $articleId) {
+			$sql = "DELETE FROM `Articles` WHERE boardName = '{$boardName}' AND articleId = {$articleId}";
+			return $this -> driver -> query ($sql);
+		}
+
 		private function getResultByArray ($sql) {
 			//
 			$resultId = $this -> driver -> query ($sql);

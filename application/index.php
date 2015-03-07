@@ -23,6 +23,7 @@
 				-> controller ('boardsController')
 				-> controller ('uploadController')
 				-> controller ('insertController')
-				-> controller ('articleController');
+				-> controller ('articleController')
+				-> controller ('deleteController');
 ?>
 

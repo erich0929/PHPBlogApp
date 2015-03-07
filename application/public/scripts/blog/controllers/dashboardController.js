@@ -8,7 +8,7 @@
 			$scope.getArticles = function (board) {
 				var success = function (data) { 
 					$scope.articles = data;
-					$scope.initPages ();
+					$scope.initPages (1);
 					$scope.allPage ($scope.pages);
 					$scope.ranges = $scope.range ($scope.pages);
 					// warning : updateCurrentPageArticles depends on above properties (allpage, ranges).
@@ -39,10 +39,10 @@
 				//console.log ('update done, page : ' + page);
 			};
 
-			$scope.initPages = function () {
+			$scope.initPages = function (startPage) {
 				//console.log ('initPages called.');
 				$scope.pages = {
-					start : 1,
+					start : startPage,
 					range : 5,
 					view : 10,
 				};
@@ -98,7 +98,21 @@
 					//console.log ($scope.ranges);
 					$scope.ranges = input;
 					return input;
+			};
+
+			$scope.deleteArticle = function (boardName, articleId, index) {
+				var boardService = new BoardService ();
+				var callback = function (data) {
+					var pageNo = $scope.pageObj.no;
+					$scope.articles.splice (index, 1);
+					$scope.initPages ($scope.pages.start);
+					$scope.allPage ($scope.pages);
+					$scope.ranges = $scope.range ($scope.pages);
+					pageNo = pageNo > $scope.pages.totalPages ? $scope.pages.totalPages : pageNo; 
+					$scope.updateCurrentPageArticles (pageNo);
 				};
+				boardService.deleteArticle (boardName, articleId, callback);
+			}
 
 			$scope.pages = {
 				start : 1,

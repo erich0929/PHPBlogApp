@@ -36,6 +36,12 @@ service.factory ('BoardService', ['$resource', function ($resource) {
 			console.log (url);
 			var boardResource = $resource (url);
 			return boardResource.query (success);
+		},
+		deleteArticle : function (boardName, articleId, callback) {
+			var success = callback || function (data) {};
+			var url = "http://blog.erich0929.com/index.php/delete/" + boardName + "/" + articleId;
+			var boardResource = $resource (url);
+			return boardResource.get (success);
 		} 
 
 	};
