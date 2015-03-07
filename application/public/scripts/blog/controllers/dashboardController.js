@@ -109,6 +109,13 @@
 					$scope.allPage ($scope.pages);
 					$scope.ranges = $scope.range ($scope.pages);
 					pageNo = pageNo > $scope.pages.totalPages ? $scope.pages.totalPages : pageNo; 
+					if ($scope.pages.totalPages == 0) {
+						$scope.ranges = null;
+						$scope.allPages = null;
+						$scope.pageObj = null;
+						$scope.pageArticles = null;
+						return;
+					}
 					$scope.updatePageObject (pageNo);
 				};
 				boardService.deleteArticle (boardName, articleId, callback);
