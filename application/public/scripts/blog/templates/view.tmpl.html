@@ -2,7 +2,7 @@
  	<div class="row">
  		<div class="col-lg-8 col-md-7 col-sm-6">
  			<h2 id="blog-post-title" class="blog-post-title"><strong>{{article.title}}</strong></h2>
- 			<p id="blog-post-meta" class="blog-post-meta"><i>{{article.date}}<a href="#">{{article.author}}</a></i></p>
+ 			<p id="blog-post-meta" class="blog-post-meta"><i>{{article.date * 1000 | date:"MMMM d, yyyy 'at' HH:mm"}}<a href="#">{{article.author}}</a></i></p>
  		</div>
  	</div>
  </div>

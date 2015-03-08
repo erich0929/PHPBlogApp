@@ -13,11 +13,12 @@
 				{
 					templateUrl : 'scripts/blog/templates/main.tmpl.html',
 					controller : 'mainController',
-			/*		resolve : {
-						boards : function (BoardService) {
-							return BoardService.query ().$promise;
+					resolve : {
+						mainArticles : function (BoardService, $route) {
+							var boardService = new BoardService ();
+							return boardService.getArticlesByPromise ({name : 'All'}, null, 0, 3);
 						}
-					}*/
+					}
 				})
 			.when (
 				'/write',

@@ -17,13 +17,15 @@
 					-> handler (function () {
 
 						$HG = getInstance ();
+						$id = $_GET ['id'];
+						$limit = $_GET ['limit'];
 						$pathContext = $HG -> getPathContext ();
 						$boardName = $pathContext [1];
 						$boardMapper = $HG -> loader -> mapper ('BoardMapper');
 						if ($boardName == 'All') {
-							$articles = $boardMapper -> getAllArticles ();
+							$articles = $boardMapper -> getAllArticles ($id, $limit);
 						} else {
-							$articles = $boardMapper -> getArticlesByBoard ($boardName);
+							$articles = $boardMapper -> getArticlesByBoard ($boardName, $id, $limit);
 						}
 						
 						$HG -> setContentType ('application/json');

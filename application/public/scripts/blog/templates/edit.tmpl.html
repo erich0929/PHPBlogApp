@@ -11,7 +11,7 @@
                     <label>Board</label>
                 </div>
                <select ng-model="board" ng-options="board.name for board in boards"></select>
-               <input type="hidden" name="boardName" ng-model="board.name" value={{article.boardName}} />
+               <input type="hidden" name="boardName" ng-model="board.name" value={{board.name}} />
             </div>
 
             <div class='form-group'>

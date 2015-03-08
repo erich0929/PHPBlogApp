@@ -22,13 +22,31 @@
 			return $boards;
 		}
 
-		public function getAllArticles () {
-			$sql = "SELECT * FROM `Articles` ORDER BY `date` DESC";
+		public function getAllArticles ($id, $limit) {
+			
+			$sql = "SELECT * FROM `Articles`";
+			if ($id) {
+				$sql = $sql . " WHERE `articleId` < {$id}";
+			}
+
+			$sql = $sql . " ORDER BY `articleId` DESC";
+			if ($limit) {
+				$sql = $sql . " limit {$limit}";
+			}
+
 			return $this -> getResultByArray ($sql);
 		}
 
-		public function getArticlesByBoard ($boardName) {
-			$sql = "SELECT * FROM `Articles` WHERE boardName = '{$boardName}' ORDER BY `date` DESC";
+		public function getArticlesByBoard ($boardName, $id, $limit) {
+			$sql = "SELECT * FROM `Articles` WHERE `boardName` = '{$boardName}'";
+			if ($id) {
+				$sql = $sql . " `articleId` < {$id}";
+			}
+
+			$sql = $sql . " ORDER BY `articleId` DESC";
+			if ($limit) {
+				$sql = $sql . " limit {$limit}";
+			}
 			return $this -> getResultByArray ($sql);
 		}
 
@@ -49,7 +67,7 @@
 					" `title` = '{$article ['title']}', `author` = '{$article ['author']}'," .
 					" `content` = '{$article ['content']}'" .
 					" WHERE `boardName` = '{$boardName}' AND `articleId` = {$articleId}";
-			echo $sql;
+			//echo $sql;
 			return $this -> driver -> query ($sql);
 		}
 

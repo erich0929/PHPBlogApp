@@ -1,7 +1,7 @@
 // dashboardController.js
 
 	angular.module ('erich0929.blogApp.controller').
-		controller ('dashboardController', ['$scope', 'BoardService', function ($scope, BoardService) {
+		controller ('dashboardController', ['$scope', 'BoardService', '$route', function ($scope, BoardService, $route) {
 
 			// this function is depend on BoardService : getArticles (board)
 			// warning : Asyncronize problem.
@@ -126,5 +126,7 @@
 				range : 5,
 				view : 10,
 				totalPages : 0
-			};
+			};	
+			
+			
 		}]);

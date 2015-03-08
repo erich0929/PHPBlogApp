@@ -8,9 +8,9 @@ angular.module ('erich0929.blogApp.controller')
 			var content = article.content;
 			var contentHtml = $sce.trustAsHtml (content);
 			$scope.article = {
-							title : "Sample blog post",
-							date : "January 1, 2014 by ",
-							author : "Mark",
+							title : article.title,
+							date : article.date,
+							author : article.author,
 							content : contentHtml
 						};			
 		}]);
