@@ -40,7 +40,7 @@
 		public function getArticlesByBoard ($boardName, $id, $limit) {
 			$sql = "SELECT * FROM `Articles` WHERE `boardName` = '{$boardName}'";
 			if ($id) {
-				$sql = $sql . " `articleId` < {$id}";
+				$sql = $sql . " AND `articleId` < {$id}";
 			}
 
 			$sql = $sql . " ORDER BY `articleId` DESC";
