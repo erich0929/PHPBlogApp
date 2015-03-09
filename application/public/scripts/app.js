@@ -16,7 +16,8 @@
 					resolve : {
 						mainArticles : function (BoardService, $route) {
 							var boardService = new BoardService ();
-							return boardService.getArticlesByPromise ({name : 'All'}, null, 0, 3);
+							var boardName = $route.current.params.board || 'All';
+							return boardService.getArticlesByPromise ({name : boardName}, null, 0, 5);
 						}
 					}
 				})

@@ -5,47 +5,32 @@
 
 				var boardService = new BoardService ();
 				var limitArticles = 5;
-				// main articleContainer
-				var articleContainer = [];
+				// main articlesContainer
+				var articlesContainer = [];
 				var idMapToPage = [];
+
+				// initialize.
+				articlesContainer [1] = mainArticles;
+
+				idMapToPage [mainArticles [0].articleId] = 1;
+				idMapToPage [mainArticles [mainArticles.length -1].articleId] = 1;
+
+
 				var boardName = $route.current.params.board || "All";
-				
-				$scope.mainArticles = getSummary (mainArticles);
-				
-				$scope.frontId = 1;
-				
 
-				$scope.getNextPage = function (mainArticles) {
-					var lastArticleId = mainArticles [limitArticles -1];
-					var currentPage = idMapToPage [lastArticleId];
-					var mainArticles = getArticles (boardName, currentPage + 1, id);
-				};
-
-				$scope.getPrevPage = function (mainArticles) {
-
-
-				};
-
-				function getArticles (boardName, page, id) {
-					// find articles in a cache.
-					if (articleContainer [page]) {
-						return articleContainer [page];
-					}
-					// if not , request articles.
-					return boardService.getArticles ({name : boardName}, null, id, limitArticles);
-				}
-
-				function getSummary (articles) {
+				$scope.getSummary = function (articles) {
 					var imageTagRegex = /<img.*?>/i; //using lazy match.
 					var htmlTag = /<.*?>/gm;
 					var contentLimit = 370;
 					
-				
+					
 					for (var i=0; i < articles.length; i++) {
 						var emptyString = /\s+/gi;
 						emptyString.lastIndex = contentLimit - 10;
 
 						var article = articles [i];
+						if (article.trusted) continue;
+
 						article.image = article.content.match (imageTagRegex);
 						//remove image tag.
 						article.content = article.content.replace (imageTagRegex, '');
@@ -63,10 +48,78 @@
 						lastIndex = lastIndex > contentLimit + 30 ? contentLimit : lastIndex;
 						
 						article.content = $sce.trustAsHtml (article.content.substring (0, lastIndex) + ' <a>... more</a>');
-
+						article.trusted = true;
 					}
 
 					return articles;
+				};
+				
+				$scope.mainArticles = $scope.getSummary (mainArticles);
+
+
+				$scope.getNextPage = function (mainArticles) {
+					var lastArticleId = mainArticles [mainArticles.length -1].articleId;
+					//console.log (mainArticles);
+					var currentPage = idMapToPage [lastArticleId];
+					console.log ("next call : " + currentPage);
+					//var getSummary = $scope.getSummary;
+
+					var callback = function (data) {
+						// boundary value problem.
+						if (data.length == 0) {
+							data = mainArticles;
+							return;
+						}
+						//console.log (data);
+						var nextPage = currentPage + 1;
+						console.log ("next call ; nextPage : " + nextPage);
+						// id map to page.
+						idMapToPage [data [data.length - 1].articleId] = nextPage; 
+						idMapToPage [data [0].articleId] = nextPage;
+						// store in a cache.
+						//console.log (articlesContainer);
+						articlesContainer [nextPage] = $scope.getSummary (data);
+						$scope.mainArticles = articlesContainer [nextPage];
+						return;
+					};
+
+					getArticles (boardName, callback, currentPage + 1, lastArticleId);
+					return;
+				};
+
+				$scope.getPrevPage = function (mainArticles) {
+					var frontArticleId = mainArticles [0].articleId;
+					var currentPage = idMapToPage [frontArticleId];
+					console.log ("prev currentPage : " + currentPage);
+					if (currentPage == 1) currentPage++;
+
+					var callback = null;/*function (mainArticles) {
+						// boundary value problem.
+						$scope.mainArticles = mainArticles.length || $scope.mainArticles;
+						var prevPage = (mainArticles) ? currentPage - 1: currentPage;
+						// id map to page.
+						idMapToPage [mainArticles [mainArticles.length - 1].articleId] = prevPage; 
+						idMapToPage [mainArticles [0].articleId] = prevPage;
+						// store in a cache.
+						articlesContainer [prevPage] = $scope.getSummary ($scope.mainArticles);
+						return;
+					};*/
+
+					getArticles (boardName, callback, currentPage - 1, frontArticleId);
+					return;
+				};
+
+				function getArticles (boardName, callback, page, id) {
+					// find articles in a cache.
+					if (articlesContainer [page]) {
+						console.log ("let's cache.");
+						$scope.mainArticles = articlesContainer [page];
+						return;
+					}
+					// if not , request articles.
+					return boardService.getArticles ({name : boardName}, callback, id, limitArticles);
 				}
+
+				
 
 			}]);
