@@ -10,6 +10,7 @@
 				var idMapToPage = [];
 
 				// initialize.
+				if (mainArticles.length == 0) return;
 				articlesContainer [1] = mainArticles;
 
 				idMapToPage [mainArticles [0].articleId] = 1;
