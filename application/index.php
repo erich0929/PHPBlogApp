@@ -25,6 +25,8 @@
 				-> controller ('insertController')
 				-> controller ('articleController')
 				-> controller ('deleteController')
-				-> controller ('editController');
+				-> controller ('editController')
+				-> controller ('cookieController')
+				-> controller ('fbLoginController');
 ?>
 

@@ -7,8 +7,13 @@
 		return HGController::getInstance ();
 	}
 
+	// load library
+	// facebook sdk
+	require_once (BASEPATH . 'libs/facebook-php/autoload.php');
 	require_once (APPPATH . 'index.php');
 
+	// session start
+	session_start ();
 	$HG -> route ();
 
 ?>

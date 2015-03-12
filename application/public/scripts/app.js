@@ -2,8 +2,8 @@
 	var app = angular.module ('erich0929.blogApp', ['ngRoute', 'erich0929.blogApp.controller',
 													'erich0929.blogApp.service', 
 													'erich0929.blogApp.directive']),
-		controller = angular.module ('erich0929.blogApp.controller', []),
-		service = angular.module ('erich0929.blogApp.service', ['ngResource']),
+		controller = angular.module ('erich0929.blogApp.controller', ['ngCookies']),
+		service = angular.module ('erich0929.blogApp.service', ['ngResource', 'ngCookies']),
 		directive = angular.module ('erich0929.blogApp.directive', []);
 
 	app.config (['$routeProvider', function ($routeProvider) {
@@ -13,6 +13,7 @@
 				{
 					templateUrl : 'scripts/blog/templates/main.tmpl.html',
 					controller : 'mainController',
+					security : false,
 					resolve : {
 						mainArticles : function (BoardService, $route) {
 							var boardService = new BoardService ();
@@ -25,12 +26,14 @@
 				'/write',
 				{
 					templateUrl : 'scripts/blog/templates/write.tmpl.html',
-					controller : 'writeController'
+					controller : 'writeController',
+					security : 'admin'
 				})
 			.when ('/edit/:boardName/:articleId', 
 				{
 					templateUrl : "scripts/blog/templates/edit.tmpl.html",
 					controller : 'editController',
+					security : 'admin',
 					resolve : {
 						article : function (BoardService, $route) {
 							var boardService = new BoardService ();
@@ -46,22 +49,27 @@
 			.when ('/admin', 
 				{
 					templateUrl : 'scripts/blog/templates/admin.tmpl.html',
-					controller : 'adminController'
+					controller : 'adminController',
+					security : 'admin'
 				})
 			.when ('/dashboard', 
 				{
 					templateUrl : 'scripts/blog/templates/dashboard.tmpl.html',
-					controller : 'dashboardController'
+					controller : 'dashboardController',
+					security : 'admin'
 				})
 			.when ('/dashboard/:board', 
 				{
 					templateUrl : 'scripts/blog/templates/dashboard.tmpl.html',
-					controller : 'dashboardController'
+					controller : 'dashboardController',
+					security : 'admin'
+
 				})
 			.when ('/view/:articleId', 
 				{
 					templateUrl : 'scripts/blog/templates/view.tmpl.html',
 					controller : 'viewController',
+					security : false,
 					resolve : {
 						article : function (ArticleService, $route) {
 							console.log ($route.current.params);
@@ -70,14 +78,27 @@
 						}
 					}
 				})
+			.when ('/login', 
+				{
+					templateUrl : 'scripts/blog/templates/login.tmpl.html',
+					controller : 'loginController',
+					security : false
+				})
 			.otherwise ({ redirectTo : '/main'});
+	}]).run (['$rootScope', '$location', 'AuthService', function ($rootScope, $location, AuthService) {
+		$rootScope.$on ('$routeChangeStart', function (event, next) {
+			var authService = new AuthService ();
+			// no authorized.
+			if (!authService.authorize (next.security)) {
+				$location.path ('/login');
+			} 
+		});
 	}]);
 
-	app.controller ('appController', ['$scope', 'BoardService', function ($scope, BoardService) {
-		$scope.brand = 'erich0929';
+	app.controller ('appController', ['$scope','BoardService', function ($scope, BoardService) {
+		$scope.brand = "Blog";
 		var boardService = new BoardService ();
 		$scope.boards = boardService.getBoards ();
-				
 	}]);
 
 	//app.directive ('');

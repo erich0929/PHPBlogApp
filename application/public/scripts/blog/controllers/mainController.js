@@ -43,7 +43,6 @@
 						var lastIndex = contentLimit;
 						if (emptyMatch) {
 							var index = emptyMatch ['index'];
-							console.log (index);
 							lastIndex = index + emptyMatch [0].length;
 						}
 						lastIndex = lastIndex > contentLimit + 30 ? contentLimit : lastIndex;
