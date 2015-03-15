@@ -41,6 +41,20 @@
     		$fbfullname = $graphObject -> getProperty('name'); // To Get Facebook full name
    			$femail = $graphObject -> getProperty('email');    // To Get Facebook email ID
 
+   			/* Test post feed.
+   			 *
+   			 *
+   			 */
+   			/*
+   			$request = new FacebookRequest($session, 'POST', "/$fbid/feed",
+   				 array (
+    				'message' => 'hello world!',
+  				)
+			);
+			$response = $request->execute();
+			$graphObject = $response->getGraphObject();
+			*/
+
     		/* ---- Session Variables -----*/
     		$_SESSION['FBID'] = $fbid;          
     		$_SESSION['FULLNAME'] = $fbfullname;

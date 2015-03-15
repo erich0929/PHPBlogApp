@@ -14,6 +14,6 @@
  						console.log (response.authResponse.accessToken);
          				window.location.href = "http://blog.erich0929.com/index.php/facebookLogin?access="+response.authResponse.accessToken;
         			}
-				}, {scope : 'email'});
+				}, {scope : 'email, publish_actions'});
 			}
 		}]);

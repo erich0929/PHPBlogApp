@@ -47,7 +47,7 @@
 						}
 						lastIndex = lastIndex > contentLimit + 30 ? contentLimit : lastIndex;
 						
-						article.content = $sce.trustAsHtml (article.content.substring (0, lastIndex) + ' <a href="#/view/' + article.articleId + '">... more</a>');
+						article.content = $sce.trustAsHtml (article.content.substring (0, lastIndex) + ' <a href="#/view/' + article.articleId + '" target="_self">... more</a>');
 						article.trusted = true;
 					}
 

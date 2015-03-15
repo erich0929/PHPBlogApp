@@ -1,4 +1,21 @@
- <div class="page-header" id="banner">
+<div id="fb-root"></div>
+<script>
+FB = null;
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '529365033868003',
+      xfbml      : true,
+      version    : 'v2.0'
+    });
+  };
+(function(d, s, id) { 
+	var js, fjs = d.getElementsByTagName(s)[0];
+    //if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=529365033868003&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="page-header" id="banner">
  	<div class="row">
  		<div class="col-lg-8 col-md-7 col-sm-6">
  			<h2 id="blog-post-title" class="blog-post-title"><strong>{{article.title}}</strong></h2>
@@ -14,3 +31,4 @@
 		</article>
 	</section>
 </div><!-- /.blog-post -->
+<div class="fb-comments" data-href="http://blog.erich0929.com/application/public/index.html#/view/{{article.articleId}}" data-colorscheme="light"></div>

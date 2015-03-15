@@ -20,14 +20,16 @@
 							var boardName = $route.current.params.board || 'All';
 							return boardService.getArticlesByPromise ({name : boardName}, null, 0, 5);
 						}
-					}
+					},
+					title : 'main page'
 				})
 			.when (
 				'/write',
 				{
 					templateUrl : 'scripts/blog/templates/write.tmpl.html',
 					controller : 'writeController',
-					security : 'admin'
+					security : 'admin',
+					title : 'write page'
 				})
 			.when ('/edit/:boardName/:articleId', 
 				{
@@ -44,7 +46,8 @@
 							var boardService = new BoardService ();
 							return boardService.getBoardsByPromise ();
 						}
-					}
+					}, 
+					title : 'edit page'
 				})
 			.when ('/admin', 
 				{
@@ -65,7 +68,7 @@
 					security : 'admin'
 
 				})
-			.when ('/view/:articleId', 
+			.when ('/view/:articleId/', 
 				{
 					templateUrl : 'scripts/blog/templates/view.tmpl.html',
 					controller : 'viewController',
@@ -91,14 +94,21 @@
 			// no authorized.
 			if (!authService.authorize (next.security)) {
 				$location.path ('/login');
-			} 
+			}
+			$rootScope.metadata = { 
+			  		url : 'http://blog.erich0929.com/application/public/index.html#' + $location.path (), 
+			  		description : ''
+			};
+			
 		});
+		$rootScope.$on('$routeChangeSuccess', function (e, current, pre) {	 
+     			
+    	});
 	}]);
 
 	app.controller ('appController', ['$scope','BoardService', function ($scope, BoardService) {
 		$scope.brand = "Blog";
 		var boardService = new BoardService ();
 		$scope.boards = boardService.getBoards ();
+	
 	}]);
-
-	//app.directive ('');
