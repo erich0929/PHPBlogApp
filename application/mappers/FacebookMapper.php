@@ -15,11 +15,30 @@
 
 	class FacebookMapper {
 
+		private $driver;
+		private $tableName;
 		private $accessToken;
 		private $session;
 		private $fbid;
 
-		public function __construct ($appId, $appSecret, $accessToken) {
+		public function __construct () {
+
+			$this -> HG =& getInstance ();
+			$this -> driver = $this -> HG -> loader -> database ('MysqliDriver');
+			$this -> tableName = 'facebookComments';
+			// makeSession logic go to function makeSession due to loader' mapper function interface.
+			// if you have access token, 
+			// you should call makeSession function after getting instance from loader mapper function.
+
+		}
+
+		public function getPostId ($commentId) {
+			$sql = "SELECT `postId` FROM {$this -> tableName} WHERE `commentId` = $commentId";
+			$res = getResultByArray ($sql);
+			return $res [0]['postId'];
+		}
+
+		public function makeSession ($appId, $appSecret, $accessToken) {
 			FacebookSession::setDefaultApplication ($appId, $appSecret);
 			$this -> accessToken = $accessToken;
 			$this -> session = new FacebookSession($this -> accessToken);
@@ -34,6 +53,17 @@
 			$username = $graphObject -> getProperty ('name');
 			$email = $graphObject -> getProperty ('email');
 			return array ('fbid' => $fbid, 'username' => $username, 'email' => $email);
+		}
+
+		// this function may delete record that have $postId if there is no $postId in facebook.	
+		public function getComments ($postId) {
+			$comments = array ();
+			if (count ($comments)) $this -> removeRecords ($postId);
+		}
+
+		private function removeRecords ($postId) {
+			$sql = "DELETE FROM {$this -> tableName} WHERE `postId` = {$postId}";
+			$this -> driver -> query ($sql);
 		}
 
 		public function postFeed ($comment, $link) {
@@ -57,6 +87,18 @@
 			return $graphObject;
 		}
 
+		private function getResultByArray ($sql) {
+			//
+			$resultId = $this -> driver -> query ($sql);
+			if (!is_resource ($resultId) && !is_object ($resultId)) {
+				return false;
+			}
+			$records = array ();
+			while ($record = $this -> driver -> fetchAssoc ($resultId)) {
+				array_push ($records, $record);
+			}
+			return $records;
+		}
 
 	}
 

@@ -8,7 +8,7 @@
 	}
 
 	// load library
-	// facebook sdk
+	// facebook sdk - It requires php5.4 upper version.
 	require_once (BASEPATH . 'libs/facebook-php/autoload.php');
 	require_once (APPPATH . 'index.php');
 

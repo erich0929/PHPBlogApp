@@ -70,8 +70,11 @@ CREATE TABLE `ServerComments` (
 
 CREATE TABLE `FacebookComments` (
 	`postId` VARCHAR(80) NOT NULL,
-	`userId` VARCHAR(60) NOT NULL,
-	`commentId` INT UNSIGNED NOT NULL,
+	`userId` VARCHAR(60) NOT NULL, 
+	`boardName` VARCHAR(30) NOT NULL,  
+	`articleId` INT UNSIGNED NOT NULL, 
+	`commentId` INT UNSIGNED NOT NULL, # TODO : unique index (commentId). 
+										# used for fetching messages from facebook api.
 	PRIMARY KEY (`postId`),
 	FOREIGN KEY (`commentId`) REFERENCES `Comments` (`commentId`)
 );
