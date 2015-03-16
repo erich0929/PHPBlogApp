@@ -1,11 +1,12 @@
 // app.js
 	var app = angular.module ('erich0929.blogApp', ['ngRoute', 'erich0929.blogApp.controller',
 													'erich0929.blogApp.service', 
-													'erich0929.blogApp.directive']),
-		controller = angular.module ('erich0929.blogApp.controller', ['ngCookies']),
-		service = angular.module ('erich0929.blogApp.service', ['ngResource', 'ngCookies']),
-		directive = angular.module ('erich0929.blogApp.directive', []);
-
+													'erich0929.blogApp.directive', 'erich0929.blogApp.constant']),
+		controller = angular.module ('erich0929.blogApp.controller', ['ngCookies', 'erich0929.blogApp.constant']),
+		service = angular.module ('erich0929.blogApp.service', ['ngResource', 'ngCookies', 'erich0929.blogApp.constant']),
+		directive = angular.module ('erich0929.blogApp.directive', ['erich0929.blogApp.constant']),
+		constant = angular.module ('erich0929.blogApp.constant', [])
+					.constant ('domain', 'http://localhost');
 	app.config (['$routeProvider', function ($routeProvider) {
 		$routeProvider
 			.when (

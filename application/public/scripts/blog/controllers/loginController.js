@@ -12,7 +12,7 @@
   							cookie     : true
 						});
  						console.log (response.authResponse.accessToken);
-         				window.location.href = "http://localhost/index.php/facebookLogin?access="+response.authResponse.accessToken;
+         				window.location.href = domain + "/index.php/facebookLogin?access="+response.authResponse.accessToken;
         			}
 				}, {scope : 'email, publish_actions'});
 			}

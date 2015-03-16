@@ -1,18 +1,18 @@
 // boardService.js
 
-var service = angular.module ('erich0929.blogApp.service', ['ngResource']);
+var service = angular.module ('erich0929.blogApp.service', ['ngResource', 'erich0929.blogApp.constant']);
 
-service.factory ('BoardService', ['$resource', function ($resource) {
-	//var url = 'http://localhost/index.php/boards';
+service.factory ('BoardService', ['$resource', 'domain', function ($resource, domain) {
+	//var url = domain + '/index.php/boards';
 	//var boardResource = $resource (url, {},{ query : {method : 'GET', isArray : true}});
 	//return boardResource;
 
 	//static private :
-	var url = 'http://localhost/index.php/boards';
+	var url = domain + '/index.php/boards';
 
 	function getArticlesResource (board, id, limit) {
 		
-		var url = 'http://localhost/index.php/boards/' + board.name;
+		var url = domain + '/index.php/boards/' + board.name;
 		var idParam = 'id=' + id;
 		var limitParam = 'limit=' + limit;
 		if (id) {
@@ -55,7 +55,7 @@ service.factory ('BoardService', ['$resource', function ($resource) {
 
 		getArticle : function (boardName, articleId, callback) {
 			var success = callback || function (data) {};
-			var url = 'http://localhost/index.php/boards/' + boardName + '/' + articleId;
+			var url = domain + '/index.php/boards/' + boardName + '/' + articleId;
 			console.log (url);
 			var boardResource = $resource (url);
 			return boardResource.get (success).$promise;
@@ -75,7 +75,7 @@ service.factory ('BoardService', ['$resource', function ($resource) {
 
 		deleteArticle : function (boardName, articleId, callback) {
 			var success = callback || function (data) {};
-			var url = "http://localhost/index.php/delete/" + boardName + "/" + articleId;
+			var url = domain + "/index.php/delete/" + boardName + "/" + articleId;
 			var boardResource = $resource (url);
 			return boardResource.get (success);
 		}
