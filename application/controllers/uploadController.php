@@ -11,7 +11,7 @@
 						if (!move_uploaded_file($_FILES [$elementName]['tmp_name'], $uploadPath)) {
 							echo $_FILES [$elementName]['error'];
 						} else {
-							echo json_encode(['url' => 'http://blog.erich0929.com/application/public/files/' . $_FILES [$elementName]['name']]);
+							echo json_encode(['url' => 'http://localhost/application/public/files/' . $_FILES [$elementName]['name']]);
 						}
 
 					});

@@ -96,7 +96,7 @@
 				$location.path ('/login');
 			}
 			$rootScope.metadata = { 
-			  		url : 'http://blog.erich0929.com/application/public/index.html#' + $location.path (), 
+			  		url : 'http://localhost/application/public/index.html#' + $location.path (), 
 			  		description : ''
 			};
 			

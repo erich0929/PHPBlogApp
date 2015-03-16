@@ -5,7 +5,7 @@ angular.module ('erich0929.blogApp.controller')
 		.controller ('viewController', ['$location', '$rootScope', '$route', '$scope', '$sce', 'article', function ($location, $rootScope, $route, $scope, $sce, article) {
 			
 			$rootScope.metadata = { 
-		  		url : 'http://blog.erich0929.com/application/public/index.html#' + $location.path ().replace (/\/$/,''), 
+		  		url : 'http://localhost/application/public/index.html#' + $location.path ().replace (/\/$/,''), 
 		  		title : article.title,
 		  		description : ''
 			};

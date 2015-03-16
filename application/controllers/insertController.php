@@ -9,7 +9,7 @@
 			
 						if ($articleMapper -> insertArticle ($_POST)) {
 							echo 'post';
-							header ('Location: ' . 'http://blog.erich0929.com/application/public/index.html');
+							header ('Location: ' . 'http://localhost/application/public/index.html');
 						}
 						exit ('500');
 					});

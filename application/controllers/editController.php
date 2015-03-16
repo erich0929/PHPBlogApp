@@ -10,7 +10,7 @@
 						$boardMapper = $HG -> loader -> mapper ('BoardMapper');
 						$bool = $boardMapper -> editArticle ($boardName, $articleId, $_POST);
 						$HG -> setContentType ('application/json');
-						header ('Location: http://blog.erich0929.com/application/public/index.html#/dashboard');
+						header ('Location: http://localhost/application/public/index.html#/dashboard');
 						echo json_encode (array ("result" => $bool), JSON_FORCE_OBJECT);
 			});
 

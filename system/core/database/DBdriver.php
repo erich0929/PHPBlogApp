@@ -38,7 +38,7 @@
 			if ($sql == '') return false;
 			// run the query
 			if  (!$resultId = $this -> simpleQuery ($sql)) {
-				$this -> $transStatus = false;
+				$this -> transStatus = false;
 				return false;
 			}
 			if ($this -> isWriteType ($sql)) {
