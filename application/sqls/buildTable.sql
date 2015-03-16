@@ -42,16 +42,36 @@ CREATE TABLE `Users` (
 	PRIMARY KEY (`username`, `email`,`sns`)
 );
 
+CREATE TABLE `Sns` (
+	`name` VARCHAR(20) NOT NULL,
+	`commentTable` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`name`)
+);
+
 CREATE TABLE `Comments` (
 	`boardName` VARCHAR(30) NOT NULL,
 	`articleId` INT UNSIGNED NOT NULL,
 	`commentId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`message` VARCHAR(500) NOT NULL,
-	`username` VARCHAR(50) NOT NULL,
-	`email` VARCHAR(50) NOT NULL,
-	`sns` VARCHAR(10) NOT NULL,
+	`snsName` VARCHAR(20) NOT NULL,
+	`username` VARCHAR(30),
+	`email` VARCHAR(50),
 	`date` INT UNSIGNED NOT NULL,
 	PRIMARY KEY (`commentId`, `articleId`, `boardName`),
 	FOREIGN KEY (`boardName`, `articleId`) REFERENCES `Articles` (`boardName`,`articleId`),
-	FOREIGN KEY (`username`, `email`, `sns`) REFERENCES `Users` (`username`, `email`, `sns`)
+	FOREIGN KEY (`snsName`) REFERENCES `Sns` (`name`)
+);
+
+CREATE TABLE `ServerComments` (
+	`commentId` INT UNSIGNED NOT NULL,
+	`comment` VARCHAR(300) NOT NULL,
+	PRIMARY KEY (`commentId`),
+	FOREIGN KEY (`commentId`) REFERENCES `Comments` (`commentId`)
+);
+
+CREATE TABLE `FacebookComments` (
+	`postId` VARCHAR(80) NOT NULL,
+	`userId` VARCHAR(60) NOT NULL,
+	`commentId` INT UNSIGNED NOT NULL,
+	PRIMARY KEY (`postId`),
+	FOREIGN KEY (`commentId`) REFERENCES `Comments` (`commentId`)
 );

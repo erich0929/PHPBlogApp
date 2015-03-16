@@ -27,6 +27,7 @@
 				-> controller ('deleteController')
 				-> controller ('editController')
 				-> controller ('cookieController')
-				-> controller ('fbLoginController');
+				-> controller ('fbLoginController')
+				-> controller ('commentsController');
 ?>
 

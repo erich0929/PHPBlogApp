@@ -17,6 +17,7 @@
 
 		private $accessToken;
 		private $session;
+		private $fbid;
 
 		public function __construct ($appId, $appSecret, $accessToken) {
 			FacebookSession::setDefaultApplication ($appId, $appSecret);
@@ -29,12 +30,23 @@
 			if (!isset($this -> session)) return false;
 			$graphObject = $this -> graphRequest ('GET', '/me');
 			$fbid = $graphObject -> getProperty ('id');
+			$this -> fbid = $fbid;
 			$username = $graphObject -> getProperty ('name');
 			$email = $graphObject -> getProperty ('email');
 			return array ('fbid' => $fbid, 'username' => $username, 'email' => $email);
 		}
 
-		public function post
+		public function postFeed ($comment, $link) {
+			$request = new FacebookRequest($session, 'POST', "/" . $this -> fbid . "/feed",
+   				 array (
+    				'message' => $comment,
+    				'link' => $link
+  				)
+			);
+			$response = $request -> execute();
+			$graphObject = $response -> getGraphObject();
+			return $graphObject -> getProperty ('id');
+		}
 
 		private function graphRequest ($method, $endpoint) {
 			$request = new FacebookRequest( $this -> session, $method, $endpoint);
