@@ -2,7 +2,7 @@
 
 service = angular.module ('erich0929.blogApp.service');
 
-service.factory ('ArticleService', ['$resource', function ($resource) {
+service.factory ('ArticleService', ['$resource', 'domain', function ($resource, domain) {
 
 	var url = domain + '/index.php/article/';
 	var articleService = function (articleId) {

@@ -1,12 +1,12 @@
 // loginController.js
 
 	angular.module ('erich0929.blogApp.controller')
-		.controller ('loginController', ['$scope', '$location', function ($scope) {
+		.controller ('loginController', ['domain', '$scope', '$location', function ($scope, domain) {
 			$scope.facebookLogin = function () {
 				FB.login (function (response) {
 					if(response.authResponse){
 						FB.init({
-  							appId      : '529365033868003',
+  							appId      : '807361542684806',
   							xfbml      : true,
   							version    : 'v2.1',
   							cookie     : true
